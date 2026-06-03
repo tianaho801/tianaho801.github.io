@@ -8,8 +8,7 @@ about:
   image-width: 15em
 ---
 
-
-I'm currently a rising senior studying Business, Economics, and Data Science at Lawrence University. My interests lie in consulting, tech, startups, and ethical innovation. I was born and raised in Vietnam.
+I'm currently a rising senior studying Business, Economics, and Data Science at Lawrence University. My interests lie in consulting, tech, startups, and ethical innovation. 
 
 ---
 

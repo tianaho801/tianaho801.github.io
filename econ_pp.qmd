@@ -1,5 +1,5 @@
 ---
-title: "econ_pp"
+title: "econ pp"
 ---
 
 <iframe src="https://econ380w26.github.io/PP-AlyssaKwanghyunOnyouThuy-w9Lj2CaZ1X0q/" 
