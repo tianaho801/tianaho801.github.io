@@ -1,7 +1,32 @@
 ---
-title: "tiana ho"
+title: "xin chao (hi)! "
+image: images/IMG_9026.JPG
+toc: false
+about: 
+  template: jolla
+  image-shape: round
+  image-width: 15em
 ---
 
-This is a Quarto website.
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+I'm currently a rising senior studying Business, Economics, and Data Science at Lawrence University. My interests lie in consulting, tech, startups, and ethical innovation. I was born and grew up in Vietnam.
+
+---
+
+### reach me at
+
+<a href="https://www.linkedin.com/in/tianaho/" target="_blank">
+  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/linkedin.svg" width="30px" style="margin: 6px;"/>
+</a>
+<a href="https://github.com/tianaho801" target="_blank">
+  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/github.svg" width="30px" style="margin: 6px;"/>
+</a>
+<a href="mailto:thuytien.qhh@gmail.com" target="_blank">
+  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/gmail.svg" width="30px" style="margin: 6px;"/>
+</a>
+<a href="https://www.instagram.com/tiana_hooo/" target="_blank">
+  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/instagram.svg" width="30px" style="margin: 6px;"/>
+</a>
+<a href="https://www.youtube.com/@TianaHo-u1d" target="_blank">
+  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/youtube.svg" width="30px" style="margin: 6px;"/>
+</a>

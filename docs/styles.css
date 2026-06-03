@@ -1,1 +1,12 @@
-/* css styles */
+
+body {
+  background-color: #f8f5f0;
+}
+
+#landing-icons {
+  font-size: 1.6rem;
+}
+
+#landing-icons a {
+  margin-right: 0.4rem;
+}

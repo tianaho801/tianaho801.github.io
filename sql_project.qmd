@@ -1,0 +1,636 @@
+---
+title: "Project 2"
+format: html
+
+author: "Group Members: [Tiana Ho] & [Khoi NGuyen]"
+---
+
+## Brief Project Overview
+
+For this project, we used the Formula 1 dataset from Kaggle that includes races, drivers, and results (and others), to see how performance patterns in F1 have changed over time. We were interested in knowing about driver success, team dominance, starting grid advantage, international diversity and how the scoring system shaped results across seasons.
+
+We somewhat follow the flow we have learnt in class by started with basically importing the CSV files, creating relational tables in DuckDB, and then checking the structure of each table before writing queries. From there, we used SQL to join tables, group data, and calculate summary measures that helped us answer each question. Finally, we pulled selected query results into R and used ggplot2 to create visualizations that made it easier to compare and interpret the patterns.
+
+```{r, message=FALSE, warning=FALSE}
+#| message: false
+#| warning: false
+#| include: false
+
+library(tidyverse)
+library(DBI)
+library(duckdb)
+library(ggrepel)
+
+
+```
+
+```{r}
+con_f1 <- dbConnect(duckdb::duckdb(), dbdir = "f1_db")
+```
+
+```{sql connection=con_f1}
+SHOW TABLES;
+```
+
+### ---------------------------------------------------------------------------
+
+# Accessing data
+
+```{r}
+
+races   <- readr::read_csv("races.csv")
+drivers <- readr::read_csv("drivers.csv")
+results <- readr::read_csv("results.csv")
+
+```
+
+```{r}
+glimpse(races)
+```
+
+```{r}
+glimpse(drivers)
+
+```
+
+```{r}
+glimpse(results)
+```
+
+### ---------------------------------------------------------------------------
+
+# Designing the database
+
+```{sql connection=con_f1}
+DROP TABLE IF EXISTS races;
+```
+
+```{sql connection=con_f1}
+CREATE TABLE races (
+  raceId INTEGER,
+  year INTEGER,
+  round INTEGER,
+  circuitId INTEGER,
+  name VARCHAR,
+  date VARCHAR,
+  time VARCHAR,
+  url VARCHAR,
+  fp1_date VARCHAR,
+  fp1_time VARCHAR,
+  fp2_date VARCHAR,
+  fp2_time VARCHAR,
+  fp3_date VARCHAR,
+  fp3_time VARCHAR,
+  quali_date VARCHAR,
+  quali_time VARCHAR,
+  sprint_date VARCHAR,
+  sprint_time VARCHAR);
+
+COPY races
+FROM 'races.csv'
+(FORMAT CSV, HEADER, NULL '\N');
+```
+
+```{sql connection= con_f1}
+DROP TABLE IF EXISTS drivers;
+```
+
+```{sql connection=con_f1}
+CREATE TABLE drivers (
+  driverId INTEGER,
+  driverRef VARCHAR,
+  number VARCHAR,
+  code VARCHAR,
+  forename VARCHAR,
+  surname VARCHAR,
+  dob VARCHAR,
+  nationality VARCHAR,
+  url VARCHAR
+);
+
+COPY drivers
+FROM 'drivers.csv'
+(FORMAT CSV, HEADER, NULL '\N');
+```
+
+```{sql connection=con_f1}
+DROP TABLE IF EXISTS results;
+```
+
+
+```{sql connection=con_f1}
+CREATE TABLE results (
+  resultId INTEGER,
+  raceId INTEGER,
+  driverId INTEGER,
+  constructorId INTEGER,
+  number INTEGER,
+  grid INTEGER,
+  position VARCHAR,
+  positionText VARCHAR,
+  positionOrder INTEGER,
+  points DOUBLE,
+  laps INTEGER,
+  time VARCHAR,
+  milliseconds VARCHAR,
+  fastestLap VARCHAR,
+  rank VARCHAR,
+  fastestLapTime VARCHAR,
+  fastestLapSpeed VARCHAR,
+  statusId INTEGER);
+
+COPY results
+FROM 'results.csv'
+(FORMAT CSV, HEADER, NULL '\N');
+```
+
+
+```{sql connection=con_f1}
+SHOW TABLES;
+```
+
+```{sql connection=con_f1}
+DESCRIBE races;
+```
+
+```{sql connection=con_f1}
+DESCRIBE drivers;
+```
+
+```{sql connection=con_f1}
+DESCRIBE results;
+```
+
+```{sql connection=con_f1}
+SELECT * FROM races LIMIT 10;
+```
+
+
+```{sql connection=con_f1}
+SELECT * FROM drivers LIMIT 10;
+```
+
+
+```{sql connection=con_f1}
+SELECT * FROM results LIMIT 10;
+```
+
+
+### ---------------------------------------------------------------------------
+
+# Querying data using SQL
+# 1-1
+# We wanted to identify the drivers who have had the strongest overall careers in terms of points.
+# This combines driver information with race results and summarizes each driver’s total races, total points, and best single-race score.
+# This allows us to seee which drivers have been the most productive over time.
+
+```{sql connection=con_f1}
+
+SELECT
+d.forename || ' ' || d.surname  AS driver_name,
+-- combine first and last name into one column
+d.nationality,
+COUNT(r.raceId)                 AS total_races,
+-- count how many races each driver entered
+SUM(r.points)                   AS total_points,
+-- sum all points scored across career
+MAX(r.points)                   AS best_race_points
+-- highest single-race points score
+FROM results AS r
+JOIN drivers AS d ON r.driverId = d.driverId
+-- join results to drivers using the shared driverId key
+WHERE r.points IS NOT NULL
+GROUP BY d.driverRef, d.forename, d.surname, d.nationality
+ORDER BY total_points DESC
+LIMIT 10;
+
+```
+
+# 1-2
+# We were interested in seeing how team success shifted across different periods of Formula 1 history.
+# So this categorizes race results into decades and adds up the total points earned by each constructor in each era.
+# It also shows how many different drivers each constructor used, which helps us compare dominance over time.
+```{sql connection=con_f1}
+SELECT
+  res.constructorId,
+  CASE
+    WHEN ra.year BETWEEN 1950 AND 1959 THEN '1950s'
+    WHEN ra.year BETWEEN 1960 AND 1969 THEN '1960s'
+    WHEN ra.year BETWEEN 1970 AND 1979 THEN '1970s'
+    WHEN ra.year BETWEEN 1980 AND 1989 THEN '1980s'
+    WHEN ra.year BETWEEN 1990 AND 1999 THEN '1990s'
+    WHEN ra.year BETWEEN 2000 AND 2009 THEN '2000s'
+    WHEN ra.year BETWEEN 2010 AND 2019 THEN '2010s'
+    ELSE '2020s'
+  END AS decade, 
+-- bucket each race year into its decade using CASE
+  SUM(res.points) AS total_points,
+  COUNT(DISTINCT res.driverId) AS drivers_used
+-- how many different drivers the constructor fielded per decade
+FROM results AS res
+JOIN races AS ra ON res.raceId = ra.raceId
+WHERE res.points IS NOT NULL
+GROUP BY res.constructorId, decade
+ORDER BY decade, total_points DESC;
+
+```
+
+# 1-3
+# Here we compared drivers by how often they turned a race start into a win.
+# It counts each driver’s total starts and total wins, then calculates a win rate from those two values.
+# To keep the results more meaningful, we only included drivers who had at least 50 career starts.
+
+```{sql connection=con_f1}
+SELECT
+  d.forename || ' ' || d.surname AS driver_name,   
+-- combine first and last name
+  d.nationality,
+  COUNT(*) AS total_starts,                       
+-- total number of race starts
+  SUM(CASE WHEN res.positionOrder = 1 THEN 1 ELSE 0 END) AS wins, 
+-- count race wins
+  ROUND(100.0 * SUM(CASE WHEN res.positionOrder = 1 THEN 1 ELSE 0 END) / COUNT(*), 2) AS win_rate_pct  
+-- wins as a percentage of starts
+FROM results AS res
+JOIN drivers AS d ON res.driverId = d.driverId
+  -- join to get driver names since results only stores driverId numbers
+GROUP BY d.driverRef, d.forename, d.surname, d.nationality
+HAVING COUNT(*) >= 50                             
+-- only include drivers with at least 50 starts
+ORDER BY win_rate_pct DESC
+LIMIT 15;
+```
+
+
+# 1-4
+
+# This shows how much starting position shapes the way a race finishes.
+# It groups drivers by grid position and calculates their average finishing position and average points earned.
+# Through this we can figure out whether starting closer to the front tends to lead to stronger race results.
+
+```{sql connection=con_f1}
+SELECT
+  res.grid AS grid_position,                       
+-- starting position on the grid
+  COUNT(*) AS total_occurrences,                   
+-- number of results from this grid slot
+  ROUND(AVG(res.positionOrder), 2) AS avg_finish_position,  
+-- average finishing position
+  ROUND(AVG(res.points), 2) AS avg_points_earned  
+-- average points scored
+FROM results AS res
+WHERE res.grid BETWEEN 1 AND 20
+  AND res.positionOrder BETWEEN 1 AND 20          
+-- keep standard race positions only
+GROUP BY res.grid
+  -- group all results together that share the same starting grid position
+ORDER BY grid_position;
+  -- sort from pole position (1) down to last (20)
+```
+
+# 2-1
+
+# We were interested in looking at how Formula 1 became more international over time.
+# It joins race results, driver information, and season data, then groups each race into a broader era.
+# For each era, it counts how many different nationalities, drivers, and races appeared.
+
+```{sql connection=con_f1}
+SELECT
+  CASE
+    WHEN ra.year BETWEEN 1950 AND 1969 THEN 'Early Era (1950-1969)'
+    WHEN ra.year BETWEEN 1970 AND 1989 THEN 'Mid Era (1970-1989)'
+    WHEN ra.year BETWEEN 1990 AND 2009 THEN 'Modern Era (1990-2009)'
+    ELSE 'Hybrid Era (2010+)'
+  END AS era,                                      
+-- group seasons into broader eras
+  COUNT(DISTINCT d.nationality) AS unique_nationalities,  
+-- number of driver nationalities
+  COUNT(DISTINCT d.driverId) AS unique_drivers,           
+-- number of drivers
+  COUNT(DISTINCT ra.raceId) AS total_races                
+-- number of races
+FROM results AS res
+JOIN drivers AS d
+  ON res.driverId = d.driverId
+JOIN races AS ra
+  ON res.raceId = ra.raceId
+GROUP BY era
+ORDER BY MIN(ra.year);
+```
+
+
+# 2-2
+
+# THis query looks at which countries have produced the most successful F1 drivers.
+# We joined race results with driver information and grouped the data by nationality.
+# Then we compare how many drivers each country had, how many race wins they earned, and how many total points they scored.
+
+```{sql connection=con_f1}
+SELECT
+  d.nationality,
+  COUNT(DISTINCT d.driverId) AS total_drivers,     
+-- number of drivers from each country
+  SUM(CASE WHEN res.positionOrder = 1 THEN 1 ELSE 0 END) AS total_wins,   
+-- total race wins
+  SUM(res.points) AS total_points                  
+-- total points scored
+FROM results AS res
+JOIN drivers AS d
+  ON res.driverId = d.driverId
+WHERE res.points IS NOT NULL
+GROUP BY d.nationality
+HAVING SUM(CASE WHEN res.positionOrder = 1 THEN 1 ELSE 0 END) > 0   
+-- keep countries with at least one win
+ORDER BY total_wins DESC
+LIMIT 12;
+```
+
+# 2-3
+
+# The goal of this is to look beyond wins and see which drivers stayed near the front most often.
+# This query counts how many times each driver finished on the podium and turns that into a podium rate.
+# To make the comparison more fair, we only kept drivers with at least 30 starts.
+```{sql connection=con_f1}
+SELECT
+  d.forename || ' ' || d.surname AS driver_name,   
+-- combine first and last name
+  d.nationality,
+  COUNT(*) AS total_starts,                        
+-- total number of race starts
+  SUM(CASE WHEN res.positionOrder <= 3 THEN 1 ELSE 0 END) AS podiums,   
+-- count top-3 finishes
+  ROUND(
+    100.0 * SUM(CASE WHEN res.positionOrder <= 3 THEN 1 ELSE 0 END) / COUNT(*), 1
+  ) AS podium_rate_pct                          
+-- podiums as a percentage of starts
+FROM results AS res
+JOIN drivers AS d
+  ON res.driverId = d.driverId
+GROUP BY d.driverRef, d.forename, d.surname, d.nationality
+HAVING COUNT(*) >= 30                              
+-- only include drivers with at least 30 starts
+ORDER BY podium_rate_pct DESC
+LIMIT 12;
+
+```
+
+# 2-4
+
+# We wanted to see how scoring patterns changed from season to season.
+# This calculates the average number of points earned per result in each year and also shows the highest single-race points total.
+# We found this one helpful because show how changes in the points system shaped results over time.
+```{sql connection=con_f1}
+SELECT
+  ra.year AS season_year,                         
+-- season year
+  COUNT(DISTINCT ra.raceId) AS races_in_season,  
+-- number of races in that season
+  ROUND(AVG(res.points), 3) AS avg_points_per_result,   
+-- average points earned per result
+  MAX(res.points) AS max_points_in_race          
+-- highest points earned in a single race
+FROM results AS res
+JOIN races AS ra
+  ON res.raceId = ra.raceId
+WHERE res.points IS NOT NULL
+  AND res.points > 0                             
+-- only include results where points were scored
+GROUP BY ra.year
+ORDER BY season_year;
+
+```
+
+
+# ------------------------------------------------------------------------------
+# pull query results into R for visualization
+
+```{r}
+q1 <- dbGetQuery(con_f1, "
+  SELECT
+    d.forename || ' ' || d.surname AS driver_name,
+    d.nationality,
+    COUNT(r.raceId)                
+    AS total_races,
+    SUM(r.points)                  
+    AS total_points,
+    MAX(r.points)                  
+    AS best_race_points
+  FROM results AS r
+  JOIN drivers AS d ON r.driverId = d.driverId
+  WHERE r.points IS NOT NULL
+  GROUP BY d.driverRef, d.forename, d.surname, d.nationality
+  ORDER BY total_points DESC
+  LIMIT 10")
+
+q3 <- dbGetQuery(con_f1, "
+  SELECT
+    d.forename || ' ' || d.surname 
+    AS driver_name,
+    d.nationality,
+    COUNT(*) AS total_starts,
+    SUM(CASE WHEN CAST(res.positionOrder AS INT) = 1 THEN 1 ELSE 0 END) 
+    AS wins,
+    ROUND(
+      100.0 * SUM(CASE WHEN CAST(res.positionOrder AS INT) = 1 THEN 1 ELSE 0 END)
+      / COUNT(*), 2
+    ) AS win_rate_pct
+  FROM results AS res
+  JOIN drivers AS d ON res.driverId = d.driverId
+  GROUP BY d.driverRef, d.forename, d.surname, d.nationality
+  HAVING COUNT(*) >= 50
+  ORDER BY win_rate_pct DESC
+  LIMIT 15")
+
+q4 <- dbGetQuery(con_f1, "
+  SELECT
+    res.grid AS grid_position,
+    COUNT(*) AS total_occurrences,
+    ROUND(AVG(res.positionOrder), 2) 
+    AS avg_finish_position,
+    ROUND(AVG(res.points), 2) 
+    AS avg_points_earned
+  FROM results AS res
+  WHERE res.grid BETWEEN 1 AND 20
+    AND res.positionOrder BETWEEN 1 AND 20
+  GROUP BY res.grid
+  ORDER BY grid_position")
+
+q6 <- dbGetQuery(con_f1, "
+  SELECT
+    d.nationality,
+    COUNT(DISTINCT d.driverId)                                             
+    AS total_drivers,
+    SUM(CASE WHEN CAST(res.positionOrder AS INT) = 1 THEN 1 ELSE 0 END)  
+    AS total_wins,
+    SUM(res.points)                                                        
+    AS total_points
+  FROM results AS res
+  JOIN drivers AS d ON res.driverId = d.driverId
+  WHERE res.points IS NOT NULL
+  GROUP BY d.nationality
+  HAVING total_wins > 0
+  ORDER BY total_wins DESC
+  LIMIT 12")
+
+q8 <- dbGetQuery(con_f1, "
+  SELECT
+    CAST(ra.year AS INT)       
+    AS season_year,
+    COUNT(DISTINCT ra.raceId)  
+    AS races_in_season,
+    ROUND(AVG(res.points), 3)  
+    AS avg_points_per_result,
+    MAX(res.points)            
+    AS max_points_in_race
+  FROM results AS res
+  JOIN races AS ra ON res.raceId = ra.raceId
+  WHERE res.points IS NOT NULL
+    AND res.points > 0
+  GROUP BY CAST(ra.year AS INT)
+  ORDER BY season_year")
+```
+
+
+
+### ---------------------------------------------------------------------------
+
+# Creating data visualizations
+
+# 1-1
+```{r}
+#| fig-width: 10
+#| fig-height: 7
+
+# merge q1 and q3 to get both career points and win rate for the same drivers
+viz1_data <- q1 %>%
+  left_join(
+    q3 %>% select(driver_name, win_rate_pct, total_starts),
+    by = "driver_name") %>%
+  filter(!is.na(win_rate_pct))
+
+ggplot(viz1_data, aes(
+  x = total_points,
+  y = win_rate_pct,
+  size  = total_races,
+  color = nationality,
+  label = driver_name)) +
+  geom_point(alpha = 0.8) +
+  geom_text_repel(size = 3.2, fontface = "bold", max.overlaps = 15) +
+# ggrepel to prevent overlapping driver name labels automatically
+  scale_size_continuous(range = c(4, 14), name = "Total Races") +
+  scale_color_brewer(palette = "Set1", name = "Nationality") +
+  labs(
+    title = "F1 All-Time Greats: Career Points vs. Win Rate",
+    subtitle = "Bubble size = number of race starts | Only drivers with 50+ starts shown",
+    x = "Total Career Points",
+    y = "Win Rate (%)",
+    caption = "Source: Kaggle Formula 1 World Championship Dataset") +
+  theme_minimal(base_size = 13) +
+  theme(
+    plot.title= element_text(face = "bold", size = 16),
+    plot.subtitle= element_text(color = "grey40"),
+    legend.position = "right",
+    panel.grid.minor = element_blank())
+```
+
+
+# 1-2
+```{r}
+#| fig-width: 9
+#| fig-height: 6
+
+ggplot(q4, aes(x = grid_position, y = avg_finish_position)) +
+  geom_line(color = "#E10600", linewidth = 1.2) +
+  geom_point(aes(size = avg_points_earned), color = "#E10600", alpha = 0.85) +
+  geom_abline(
+    slope = 1, intercept = 0,
+    linetype = "dashed", color = "grey60", linewidth = 0.8 ) +
+  # diagonal in order to show  what perfect grid-to-finish prediction would look like
+  annotate(
+    "text", x = 16, y = 14,
+    label  = "Perfect prediction\n(grid = finish)",
+    color = "grey50", size = 3.2, fontface = "italic") +
+  scale_size_continuous(range = c(2, 9), name = "Avg Points\nEarned") +
+  scale_x_continuous(breaks = 1:20) +
+  scale_y_continuous(breaks = 1:20) +
+  labs(
+    title = "Does Starting Position Decide the Race?",
+    subtitle = "Average finishing position by grid slot | Point size = average points scored",
+    x = "Grid (Starting) Position",
+    y  = "Average Finishing Position",
+    caption  = "Source: Kaggle Formula 1 World Championship Dataset") +
+  theme_minimal(base_size = 13) +
+  theme(
+    plot.title= element_text(face = "bold", size = 15),
+    plot.subtitle = element_text(color = "grey40"),
+    panel.grid.minor = element_blank())
+```
+
+
+# 2-1
+```{r}
+#| fig-width: 9
+#| fig-height: 6
+
+q6 %>%
+  mutate(nationality = fct_reorder(nationality, total_wins)) %>%
+  ggplot(aes(x = nationality, y = total_wins, fill = total_wins)) +
+  geom_text(aes(label = total_wins), hjust = -0.2, size = 3.8, fontface = "bold") +
+  coord_flip() +
+  geom_col(width = 0.75, fill = "#E10600") +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.1))) +
+  labs(
+    title = "Which Countries Produce the Most F1 Winners?",
+    subtitle = "Total race wins by driver nationality — all time",
+    x = NULL,
+    y = "Total Race Wins",
+    caption = "Source: Kaggle Formula 1 World Championship Dataset") +
+  theme_minimal(base_size = 13) +
+  theme(
+    plot.title   = element_text(face = "bold", size = 15),
+    plot.subtitle = element_text(color = "grey40"),
+    axis.text.y = element_text(size = 11),
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor   = element_blank())
+```
+
+# 2-2
+```{r}
+#| fig-width: 11
+#| fig-height: 6
+
+ggplot(q8, aes(x = season_year, y = avg_points_per_result)) +
+  geom_line(color = "#E10600", linewidth = 1.1) +
+  geom_point(color = "#E10600", size = 1.8) +
+  geom_vline(
+    xintercept = 2010,
+    linetype = "dashed", color = "grey40", linewidth = 0.8) +
+  annotate(
+    "text", x = 2011, y = max(q8$avg_points_per_result) * 0.9,
+    label = "New points\nsystem (2010)",
+    color = "grey30", size = 3.2, hjust = 0, fontface = "italic") +
+  scale_x_continuous(breaks = seq(1950, 2020, 10)) +
+  labs(
+    title = "F1 Scoring Landscape Over Time",
+    subtitle = "Average points per race entry per season (points-scoring finishes only)",
+    x = "Season",
+    y = "Average Points Per Race Result",
+    caption = "Source: Kaggle Formula 1 World Championship Dataset") +
+  theme_minimal(base_size = 13) +
+  theme(
+    plot.title = element_text(face = "bold", size = 15),
+    plot.subtitle = element_text(color = "grey40"),
+    panel.grid.minor = element_blank())
+```
+```{r}
+
+DBI::dbDisconnect(con_f1, shutdown = TRUE)
+```
+### ---------------------------------------------------------------------------
+
+# Sources
+
+- Kaggle F1 Dataset: https://www.kaggle.com/datasets/rohanrao/formula-1-world-championship-1950-2020
+- DuckDB R docs: https://duckdb.org/docs/api/r
+- ggplot2: https://ggplot2.tidyverse.org
+### ---------------------------------------------------------------------------

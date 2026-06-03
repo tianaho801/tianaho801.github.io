@@ -1,0 +1,35 @@
+---
+title: "DuckDB - an Embeddable Analytical Database"
+format: html
+---
+
+In this project Khoi Nguyen and I read and created a poster on “DuckDB - an embeddable analytical database”. What struck me most reading this paper was probably how clearly the authors identified a gap that, in hindsight, seems almost obvious that I thought somebody must have solved it already. Embedded databases had always existed. Analytical databases had always existed. But nobody had ever built something that was both at the same time.
+
+The problem is that before DuckDB, a person working in R or Python with local data will have 2 choices: 1) use SQLite, which is easy to embed but painfully slow on complex analytical queries, or use a full database stand-alone server like PostgreSQL, which can handle heavier tasks but requires set-up and a network connection just to analyze a local file. So the proposed problem is that there is a gap between embedded database and analytical processing. DuckDB is then built to bridge that gap. In the article, the authors make a  case that the demand was already proven by MonetDBLite, their earlier attempt, deprived from MonetDB - a stand-alone server database system.
+
+What I find most interesting about the methodology they used is how careful and deliberate each design decision that the team made. Every decision is prioritized by the constraints of the use case rather than by what is most technically optimal. Basically, in the previous attempt in MonetDBlite, they have learnt that embedded analytical database must:
+
+1. Be fast at analytics, but don't completely break for simple reads/writes
+
+2. Never crash the host app: if the database runs out of memory, it should just stop the query, and not take down the whole program with it
+
+3. Move data efficiently: since the database and the app share the same memory space, passing data between them should be fast, so as not to waste RAM,..
+
+4. Run anywhere, and no dependencies on anything: no external libraries, no messing with system settings, so it can run in whatever environment the host app runs in.
+
+For example, they chose vectorized execution over JIT (just-in-time) compilation. JIT is actually faster because it translates SQL into native machine code so it is a more theoretically optimal approach. But it DEPENDS on massive external libraries like LLVM, which have extensive dependencies that would violate the portability requirement (4). An embedded database has to run anywhere the host application runs, with no external libraries. So the authors accepted a deliberate performance tradeoff as vectorized is fast enough, and it meets every constraint JIT doesn't. 
+
+The other tradeoff that I think worth considering, as he mentioned, is the stability pressure that comes with being embedded. When a database runs as a stand-alone server, a crash only brings down the database. When it is embedded inside your application, a crash takes the entire application down with it. This might sound like an implementation detail, but it fundamentally shapes how the system has to be accurately designed. Every query needs to abort cleanly under resource pressure. Memory management has to be careful,etc. That constraint is part of why the authors built DuckDB from scratch rather than adapting MonetDBLite because there were too many architectural assumptions in an existing system that didn't account for this requirement.
+
+In terms of broader impact, DuckDB has clearly validated a shift in how the data science community thinks about local data processing. I did some research and saw that the ideas at its design, including columnar storage, vectorized execution, MVCC,  have since influenced tools like Polars. It's a modern Python dataframe library that applies similar principles to replace Pandas in performance-critical workflows. More broadly, DuckDB's success has contributed to what people now call the modern data stack, where lightweight, embeddable tools replace server-based infrastructure for analytical work that doesn't need to live in the cloud. This paperwas published at the conference in 2019, and the ecosystem has sort of grown significantly around it after.
+
+Personally, this paper changed something specific about how I think about the tools I use. I used to work on an R project for the Airbnb price prediction model, I remember using dplyr without ever thinking about what it couldn't do or why. And this paper made me realize that choosing a tool is also choosing an architecture. Whether you want full query optimization or not, whether your data lives in memory or on disk, what happens when your dataset grows beyond a certain size. Those are practical decisions that affect whether an analysis runs in seconds or hours.
+
+Yes, DuckDB is not the fastest database. It is not the most complete in terms of feature -- at the conference time it was still missing a buffer manager, intra-query parallelism, and R and Python APIs. But it was exactly the right tool for one specific use case, built with that use case as the requirement met at every step. As part of the guest speaker today, he metioned the importance of knowing when to use what, and I think that also aligns with what I learnt from this: knowing precisely what problem you are solving and not to drift toward solving adjacent ones, is something I want to carry into how I approach my own work, whether that is a model,  analysis, or anything else I build going forward.
+
+I have used ChatGPT to further understand the article, explaining the terms they used and also used to help formatting the poster.
+
+## see more
+
+- [poster](https://rpubs.com/ntkhoi2k5/1437771)
+- [paper](duckdb.pdf)

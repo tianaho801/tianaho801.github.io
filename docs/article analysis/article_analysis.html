@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Hello! – Tiana Ho</title>
+<title>DuckDB - an Embeddable Analytical Database – Tiana Ho</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,23 +23,24 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-c82218b12ac0f327fa8bd7d074ce2147.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-c82218b12ac0f327fa8bd7d074ce2147.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -69,7 +70,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-fixed fullcontent quarto-light">
@@ -79,7 +80,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Tiana Ho</span>
     </a>
   </div>
@@ -90,7 +91,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">home</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -99,29 +100,41 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-projects">    
         <li>
-    <a class="dropdown-item" href="./sql_project.html">
+    <a class="dropdown-item" href="../sql_project.qmd">
  <span class="dropdown-text">sql project</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./text_analysis.html">
+    <a class="dropdown-item" href="../text_analysis.qmd">
  <span class="dropdown-text">text analysis</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./article_analysis.html">
+    <a class="dropdown-item" href="../article_analysis.qmd">
  <span class="dropdown-text">article analysis</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./econ_pp.html">
+    <a class="dropdown-item" href="../econ_bp.qmd">
+ <span class="dropdown-text">economics bp</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../econ_rp.qmd">
+ <span class="dropdown-text">econometrics rp</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../econ_pp.qmd">
  <span class="dropdown-text">econometrics pp</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../econ_cp.qmd">
+ <span class="dropdown-text">econometrics cp</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="./motion.html"> 
+    <a class="nav-link" href="../motion.qmd"> 
 <span class="menu-text">motion</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./life.html"> 
+    <a class="nav-link" href="../life.qmd"> 
 <span class="menu-text">life</span></a>
   </li>  
 </ul>
@@ -137,32 +150,62 @@ ul.task-list li input[type="checkbox"] {
 <!-- margin-sidebar -->
     
 <!-- main -->
-<div class="quarto-about-jolla">
-  <img src="images/IMG_9026.JPG" class="about-image
-  round " style="height: 15em; width: 15em;">
- <header id="title-block-header" class="quarto-title-block default">
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Hello!</h1>
+<h1 class="title">DuckDB - an Embeddable Analytical Database</h1>
 </div>
+
+
+
 <div class="quarto-title-meta">
+
+    
+  
+    
   </div>
-</header><main class="content" id="quarto-document-content">
-<section id="xin-chao-hi" class="level2">
-<h2 data-anchor-id="xin-chao-hi">xin chao (hi)!</h2>
-<p>I’m currently a rising senior studying Business, Economics, and Data Science at Lawrence University. My interests lie in consulting, tech, startups, and ethical innovation. I was born and grew up in Vietnam.</p>
-<hr>
-<section id="reach-me-at" class="level3">
-<h3 data-anchor-id="reach-me-at">reach me at</h3>
-<p><a href="https://www.linkedin.com/in/tianaho/" target="_blank"> <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/linkedin.svg" width="30px" style="margin: 6px;"> </a> <a href="https://github.com/tianaho801" target="_blank"> <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/github.svg" width="30px" style="margin: 6px;"> </a> <a href="mailto:thuytien.qhh@gmail.com" target="_blank"> <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/gmail.svg" width="30px" style="margin: 6px;"> </a> <a href="https://www.instagram.com/tiana_hooo/" target="_blank"> <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/instagram.svg" width="30px" style="margin: 6px;"> </a> <a href="https://www.youtube.com/@TianaHo-u1d" target="_blank"> <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/youtube.svg" width="30px" style="margin: 6px;"> </a></p>
+  
+
+
+</header>
+
+
+<p>In this project Khoi Nguyen and I read and created a poster on “DuckDB - an embeddable analytical database”. What struck me most reading this paper was probably how clearly the authors identified a gap that, in hindsight, seems almost obvious that I thought somebody must have solved it already. Embedded databases had always existed. Analytical databases had always existed. But nobody had ever built something that was both at the same time.</p>
+<p>The problem is that before DuckDB, a person working in R or Python with local data will have 2 choices: 1) use SQLite, which is easy to embed but painfully slow on complex analytical queries, or use a full database stand-alone server like PostgreSQL, which can handle heavier tasks but requires set-up and a network connection just to analyze a local file. So the proposed problem is that there is a gap between embedded database and analytical processing. DuckDB is then built to bridge that gap. In the article, the authors make a case that the demand was already proven by MonetDBLite, their earlier attempt, deprived from MonetDB - a stand-alone server database system.</p>
+<p>What I find most interesting about the methodology they used is how careful and deliberate each design decision that the team made. Every decision is prioritized by the constraints of the use case rather than by what is most technically optimal. Basically, in the previous attempt in MonetDBlite, they have learnt that embedded analytical database must:</p>
+<ol type="1">
+<li><p>Be fast at analytics, but don’t completely break for simple reads/writes</p></li>
+<li><p>Never crash the host app: if the database runs out of memory, it should just stop the query, and not take down the whole program with it</p></li>
+<li><p>Move data efficiently: since the database and the app share the same memory space, passing data between them should be fast, so as not to waste RAM,..</p></li>
+<li><p>Run anywhere, and no dependencies on anything: no external libraries, no messing with system settings, so it can run in whatever environment the host app runs in.</p></li>
+</ol>
+<p>For example, they chose vectorized execution over JIT (just-in-time) compilation. JIT is actually faster because it translates SQL into native machine code so it is a more theoretically optimal approach. But it DEPENDS on massive external libraries like LLVM, which have extensive dependencies that would violate the portability requirement (4). An embedded database has to run anywhere the host application runs, with no external libraries. So the authors accepted a deliberate performance tradeoff as vectorized is fast enough, and it meets every constraint JIT doesn’t.</p>
+<p>The other tradeoff that I think worth considering, as he mentioned, is the stability pressure that comes with being embedded. When a database runs as a stand-alone server, a crash only brings down the database. When it is embedded inside your application, a crash takes the entire application down with it. This might sound like an implementation detail, but it fundamentally shapes how the system has to be accurately designed. Every query needs to abort cleanly under resource pressure. Memory management has to be careful,etc. That constraint is part of why the authors built DuckDB from scratch rather than adapting MonetDBLite because there were too many architectural assumptions in an existing system that didn’t account for this requirement.</p>
+<p>In terms of broader impact, DuckDB has clearly validated a shift in how the data science community thinks about local data processing. I did some research and saw that the ideas at its design, including columnar storage, vectorized execution, MVCC, have since influenced tools like Polars. It’s a modern Python dataframe library that applies similar principles to replace Pandas in performance-critical workflows. More broadly, DuckDB’s success has contributed to what people now call the modern data stack, where lightweight, embeddable tools replace server-based infrastructure for analytical work that doesn’t need to live in the cloud. This paperwas published at the conference in 2019, and the ecosystem has sort of grown significantly around it after.</p>
+<p>Personally, this paper changed something specific about how I think about the tools I use. I used to work on an R project for the Airbnb price prediction model, I remember using dplyr without ever thinking about what it couldn’t do or why. And this paper made me realize that choosing a tool is also choosing an architecture. Whether you want full query optimization or not, whether your data lives in memory or on disk, what happens when your dataset grows beyond a certain size. Those are practical decisions that affect whether an analysis runs in seconds or hours.</p>
+<p>Yes, DuckDB is not the fastest database. It is not the most complete in terms of feature – at the conference time it was still missing a buffer manager, intra-query parallelism, and R and Python APIs. But it was exactly the right tool for one specific use case, built with that use case as the requirement met at every step. As part of the guest speaker today, he metioned the importance of knowing when to use what, and I think that also aligns with what I learnt from this: knowing precisely what problem you are solving and not to drift toward solving adjacent ones, is something I want to carry into how I approach my own work, whether that is a model, analysis, or anything else I build going forward.</p>
+<p>I have used ChatGPT to further understand the article, explaining the terms they used and also used to help formatting the poster.</p>
+<section id="see-more" class="level2">
+<h2 class="anchored" data-anchor-id="see-more">see more</h2>
+<ul>
+<li><a href="https://rpubs.com/ntkhoi2k5/1437771">poster</a></li>
+<li><a href="duckdb.pdf">paper</a></li>
+</ul>
 
 
 </section>
-</section>
-</main>  
-</div>
- <!-- /main -->
+
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
     const isCodeAnnotation = (el) => {
       for (const clz of el.classList) {
         if (clz.startsWith('code-annotation-')) {                     

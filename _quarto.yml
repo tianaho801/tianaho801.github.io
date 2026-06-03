@@ -1,22 +1,29 @@
 project:
   type: website
-  output-dir: docs 
+  output-dir: docs
 
 website:
-  title: "tiana ho"
+  title: "Tiana Ho"
   navbar:
     left:
       - href: index.qmd
-        text: overview
-      - about.qmd
+        text: home
+      - text: projects
+        menu:
+          - text: "sql project"
+            href: sql_project.qmd
+          - text: "text analysis"
+            href: text_analysis.qmd
+          - text: "article analysis"
+            href: article_analysis.qmd
+          - text: "econometrics pp"
+            href: econ_pp.qmd
+      - href: motion.qmd
+        text: motion
+      - href: life.qmd
+        text: life
 
 format:
   html:
-    theme:
-      - cosmo
-      - brand
+    theme: cosmo
     css: styles.css
-    toc: true
-
-
-
