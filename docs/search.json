@@ -2,9 +2,9 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Hello!",
+    "title": "xin chao (hi)!",
     "section": "",
-    "text": "I’m currently a rising senior studying Business, Economics, and Data Science at Lawrence University. My interests lie in consulting, tech, startups, and ethical innovation. I was born and grew up in Vietnam."
+    "text": "I’m currently a rising senior studying Business, Economics, and Data Science at Lawrence University. My interests lie in consulting, tech, startups, and ethical innovation. I was born and raised in Vietnam.\n\n\nreach me at"
   },
   {
     "objectID": "about.html",
@@ -138,5 +138,26 @@
     "title": "Love, Fear, and Social Worlds: A Text Analysis of Pride and Prejudice, Frankenstein, and Dracula",
     "section": "References",
     "text": "References\n\nPride and Prejudice cover: https://www.amazon.com/Pride-Prejudice-Original-Austen-Classic/dp/B0DK41XQJ2\nFrankenstein cover: https://www.amazon.com/Frankenstein-Chartwell-Classics-Mary-Shelley/dp/0785839887\nDracula cover: https://www.pixartprinting.co.uk/blog/dracula-covers-book/\nProject Gutenberg: https://www.gutenberg.org\ngutenbergr R package: https://docs.ropensci.org/gutenbergr\nText Mining with R (Silge & Robinson): https://www.tidytextmining.com\n[Add your AI collaboration prompts here per the AI log template]"
+  },
+  {
+    "objectID": "r package.html#jobtracker",
+    "href": "r package.html#jobtracker",
+    "title": "Tiana Ho",
+    "section": "JobTrackeR",
+    "text": "JobTrackeR\nA Shiny app for tracking job applications, built with R."
+  },
+  {
+    "objectID": "r package.html",
+    "href": "r package.html",
+    "title": "Tiana Ho",
+    "section": "",
+    "text": "A Shiny app for tracking job applications, built with R."
+  },
+  {
+    "objectID": "r package.html#title-jobtracker---r-package",
+    "href": "r package.html#title-jobtracker---r-package",
+    "title": "Tiana Ho",
+    "section": "",
+    "text": "A Shiny app for tracking job applications, built with R."
   }
 ]

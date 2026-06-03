@@ -1,5 +1,5 @@
 ---
-title: "Project 2"
+title: "F1 analysis"
 format: html
 
 author: "Group Members: [Tiana Ho] & [Khoi NGuyen]"
@@ -34,7 +34,7 @@ SHOW TABLES;
 
 ### ---------------------------------------------------------------------------
 
-# Accessing data
+Accessing data
 
 ```{r}
 
@@ -59,7 +59,7 @@ glimpse(results)
 
 ### ---------------------------------------------------------------------------
 
-# Designing the database
+Designing the database
 
 ```{sql connection=con_f1}
 DROP TABLE IF EXISTS races;
@@ -178,11 +178,9 @@ SELECT * FROM results LIMIT 10;
 
 ### ---------------------------------------------------------------------------
 
-# Querying data using SQL
-# 1-1
-# We wanted to identify the drivers who have had the strongest overall careers in terms of points.
-# This combines driver information with race results and summarizes each driver’s total races, total points, and best single-race score.
-# This allows us to seee which drivers have been the most productive over time.
+ We wanted to identify the drivers who have had the strongest overall careers in terms of points.
+ This combines driver information with race results and summarizes each driver’s total races, total points, and best single-race score.
+ This allows us to seee which drivers have been the most productive over time.
 
 ```{sql connection=con_f1}
 
@@ -206,10 +204,10 @@ LIMIT 10;
 
 ```
 
-# 1-2
-# We were interested in seeing how team success shifted across different periods of Formula 1 history.
-# So this categorizes race results into decades and adds up the total points earned by each constructor in each era.
-# It also shows how many different drivers each constructor used, which helps us compare dominance over time.
+
+We were interested in seeing how team success shifted across different periods of Formula 1 history.
+So this categorizes race results into decades and adds up the total points earned by each constructor in each era.
+It also shows how many different drivers each constructor used, which helps us compare dominance over time.
 ```{sql connection=con_f1}
 SELECT
   res.constructorId,
@@ -235,10 +233,9 @@ ORDER BY decade, total_points DESC;
 
 ```
 
-# 1-3
-# Here we compared drivers by how often they turned a race start into a win.
-# It counts each driver’s total starts and total wins, then calculates a win rate from those two values.
-# To keep the results more meaningful, we only included drivers who had at least 50 career starts.
+Here we compared drivers by how often they turned a race start into a win.
+It counts each driver’s total starts and total wins, then calculates a win rate from those two values.
+To keep the results more meaningful, we only included drivers who had at least 50 career starts.
 
 ```{sql connection=con_f1}
 SELECT
@@ -261,12 +258,9 @@ ORDER BY win_rate_pct DESC
 LIMIT 15;
 ```
 
-
-# 1-4
-
-# This shows how much starting position shapes the way a race finishes.
-# It groups drivers by grid position and calculates their average finishing position and average points earned.
-# Through this we can figure out whether starting closer to the front tends to lead to stronger race results.
+ This shows how much starting position shapes the way a race finishes.
+ It groups drivers by grid position and calculates their average finishing position and average points earned.
+ Through this we can figure out whether starting closer to the front tends to lead to stronger race results.
 
 ```{sql connection=con_f1}
 SELECT
@@ -288,11 +282,9 @@ ORDER BY grid_position;
   -- sort from pole position (1) down to last (20)
 ```
 
-# 2-1
-
-# We were interested in looking at how Formula 1 became more international over time.
-# It joins race results, driver information, and season data, then groups each race into a broader era.
-# For each era, it counts how many different nationalities, drivers, and races appeared.
+ We were interested in looking at how Formula 1 became more international over time.
+ It joins race results, driver information, and season data, then groups each race into a broader era.
+ For each era, it counts how many different nationalities, drivers, and races appeared.
 
 ```{sql connection=con_f1}
 SELECT
@@ -318,12 +310,9 @@ GROUP BY era
 ORDER BY MIN(ra.year);
 ```
 
-
-# 2-2
-
-# THis query looks at which countries have produced the most successful F1 drivers.
-# We joined race results with driver information and grouped the data by nationality.
-# Then we compare how many drivers each country had, how many race wins they earned, and how many total points they scored.
+ THis query looks at which countries have produced the most successful F1 drivers.
+ We joined race results with driver information and grouped the data by nationality.
+ Then we compare how many drivers each country had, how many race wins they earned, and how many total points they scored.
 
 ```{sql connection=con_f1}
 SELECT
@@ -345,11 +334,9 @@ ORDER BY total_wins DESC
 LIMIT 12;
 ```
 
-# 2-3
-
-# The goal of this is to look beyond wins and see which drivers stayed near the front most often.
-# This query counts how many times each driver finished on the podium and turns that into a podium rate.
-# To make the comparison more fair, we only kept drivers with at least 30 starts.
+ The goal of this is to look beyond wins and see which drivers stayed near the front most often.
+This query counts how many times each driver finished on the podium and turns that into a podium rate.
+To make the comparison more fair, we only kept drivers with at least 30 starts.
 ```{sql connection=con_f1}
 SELECT
   d.forename || ' ' || d.surname AS driver_name,   
@@ -374,11 +361,9 @@ LIMIT 12;
 
 ```
 
-# 2-4
-
-# We wanted to see how scoring patterns changed from season to season.
-# This calculates the average number of points earned per result in each year and also shows the highest single-race points total.
-# We found this one helpful because show how changes in the points system shaped results over time.
+ We wanted to see how scoring patterns changed from season to season.
+This calculates the average number of points earned per result in each year and also shows the highest single-race points total.
+ We found this one helpful because show how changes in the points system shaped results over time.
 ```{sql connection=con_f1}
 SELECT
   ra.year AS season_year,                         
@@ -402,7 +387,7 @@ ORDER BY season_year;
 
 
 # ------------------------------------------------------------------------------
-# pull query results into R for visualization
+Pull query results into R for visualization
 
 ```{r}
 q1 <- dbGetQuery(con_f1, "
@@ -494,9 +479,8 @@ q8 <- dbGetQuery(con_f1, "
 
 ### ---------------------------------------------------------------------------
 
-# Creating data visualizations
+ Creating data visualizations
 
-# 1-1
 ```{r}
 #| fig-width: 10
 #| fig-height: 7
@@ -534,7 +518,6 @@ ggplot(viz1_data, aes(
 ```
 
 
-# 1-2
 ```{r}
 #| fig-width: 9
 #| fig-height: 6
@@ -567,7 +550,6 @@ ggplot(q4, aes(x = grid_position, y = avg_finish_position)) +
 ```
 
 
-# 2-1
 ```{r}
 #| fig-width: 9
 #| fig-height: 6
@@ -594,7 +576,6 @@ q6 %>%
     panel.grid.minor   = element_blank())
 ```
 
-# 2-2
 ```{r}
 #| fig-width: 11
 #| fig-height: 6

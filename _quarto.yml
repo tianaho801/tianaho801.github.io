@@ -12,6 +12,8 @@ website:
         menu:
           - text: "sql project"
             href: sql_project.qmd
+          - text: "JobTrackeR"
+            href: job_tracker.qmd
           - text: "text analysis"
             href: text_analysis.qmd
           - text: "article analysis"
