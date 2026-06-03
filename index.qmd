@@ -1,6 +1,6 @@
 ---
 title: "xin chao (hi)! "
-image: images/IMG_9026.JPG
+image: IMG_9026.JPG
 toc: false
 about: 
   template: jolla
