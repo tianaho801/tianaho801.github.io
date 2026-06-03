@@ -149,9 +149,9 @@
   {
     "objectID": "r package.html",
     "href": "r package.html",
-    "title": "Tiana Ho",
+    "title": "JobTrackeR",
     "section": "",
-    "text": "A Shiny app for tracking job applications, built with R."
+    "text": "A R package for tracking job applications built with my team in ADC 405."
   },
   {
     "objectID": "r package.html#title-jobtracker---r-package",
