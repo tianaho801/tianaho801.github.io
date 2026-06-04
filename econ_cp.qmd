@@ -1,0 +1,9 @@
+---
+title: "econ cp"
+---
+
+<iframe src="https://econ380w26.github.io/CP-AlyssaKwanghyunOnyouThuy-w9Lj2CaZ1X0q" 
+        width="100%" height="800px" 
+        style="border: none;">
+</iframe>
+

@@ -20,6 +20,10 @@ website:
             href: article_analysis.qmd
           - text: "econometrics pp"
             href: econ_pp.qmd
+          - text: "econometrics rp"
+            href: econ_rp.qmd
+          - text: "econometrics cp"
+            href: econ_cp.qmd
       - href: motion.qmd
         text: motion
       - href: life.qmd
