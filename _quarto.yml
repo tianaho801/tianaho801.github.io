@@ -13,7 +13,7 @@ website:
           - text: "sql project"
             href: sql_project.qmd
           - text: "JobTrackeR"
-            href: job_tracker.qmd
+            href: r package.qmd
           - text: "text analysis"
             href: text_analysis.qmd
           - text: "article analysis"
