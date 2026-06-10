@@ -3,14 +3,26 @@ title: "Life"
 format: html
 ---
 
-I have a strong interest in nonprofit work and startups alike. I love to explore the intersection of social impact and entrepreneurial thinking in innovations!
+I have a strong interest in nonprofit work and startups alike. I love to explore the intersection of social impact and entrepreneurial thinking!
 
 Earlier this term I participated in [The Pitch](https://thepitchfoxcities.com/)! competition, which i have learnt a lot from (more updates to come!) More recently, I competed in an annual datathon, where i was able to win first place with my analysis on the [impact of natural disaster on the vietnamese economy and people.](datathon.pdf)
 
-I enjoy reading, working out, flying hot air balloons, badminton, doing photography and cinematography,..!
+I enjoy reading, volunteering for [habitat for humanity](https://www.foxcitieshabitat.org/), making clothes, working out, flying hot air balloons, badminton, doing photography and cinematography,..!
 
 ::: {layout-ncol=2}
+![](images/IMG_9467.JPG)
+
+![](images/IMG_9526.JPG)
+
+![](images/IMG_9735.JPG)
+
+![](images/IMG_4012.JPG)
+
+![](images/DSC07715.JPG)
+
 ![](images/IMG_0055.JPG)
+
+![](images/IMG_9609.JPG)
 
 ![](images/IMG_5821.JPG)
 
@@ -23,11 +35,5 @@ I enjoy reading, working out, flying hot air balloons, badminton, doing photogra
 ![](images/IMG_8434.JPG)
 
 ![](images/IMG_8724.JPG)
-
-![](images/IMG_9526.JPG)
-
-![](images/IMG_9735.JPG)
-
-![](images/IMG_4012.JPG)
 
 :::
