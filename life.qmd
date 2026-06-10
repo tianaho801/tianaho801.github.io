@@ -11,8 +11,6 @@ I enjoy reading, volunteering for [habitat for humanity](https://www.foxcitiesha
 
 ::: {layout-ncol=2}
 
-![](images/IMG_9467 2.JPG)
-
 ![](images/IMG_9609.JPG)
 
 ![](images/IMG_9526.JPG)
@@ -21,7 +19,13 @@ I enjoy reading, volunteering for [habitat for humanity](https://www.foxcitiesha
 
 ![](images/IMG_4012.jpg)
 
+![](images/IMG_9467 2.JPG)
+
+![](images/IMG_8724.JPG)
+
 ![](images/DSC07715.JPG)
+
+![](images/IMG_8434.JPG)
 
 ![](images/IMG_0055.JPG)
 
@@ -32,7 +36,5 @@ I enjoy reading, volunteering for [habitat for humanity](https://www.foxcitiesha
 ![](images/IMG_6944.JPG)
 
 ![](images/IMG_8389.JPG)
-
-![](images/IMG_8724.JPG)
 
 :::
