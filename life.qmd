@@ -10,6 +10,7 @@ Earlier this term I participated in [The Pitch](https://thepitchfoxcities.com/)!
 I enjoy reading, volunteering for [habitat for humanity](https://www.foxcitieshabitat.org/), making clothes, working out, flying hot air balloons, badminton, doing photography and cinematography,..!
 
 ::: {layout-ncol=2}
+
 ![](images/IMG_9467 2.JPG)
 
 ![](images/IMG_9609.JPG)
@@ -21,9 +22,7 @@ I enjoy reading, volunteering for [habitat for humanity](https://www.foxcitiesha
 ![](images/IMG_4012.jpg)
 
 ![](images/DSC07715.JPG)
-:::
 
-::: {layout-ncol=3}
 ![](images/IMG_0055.JPG)
 
 ![](images/IMG_5821.JPG)
@@ -35,4 +34,5 @@ I enjoy reading, volunteering for [habitat for humanity](https://www.foxcitiesha
 ![](images/IMG_8389.JPG)
 
 ![](images/IMG_8724.JPG)
+
 :::
