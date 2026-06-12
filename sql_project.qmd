@@ -603,6 +603,6 @@ DBI::dbDisconnect(con_f1, shutdown = TRUE)
 
 # Sources
 
-- Kaggle F1 Dataset: https://www.kaggle.com/datasets/rohanrao/formula-1-world-championship-1950-2020
-- DuckDB R docs: https://duckdb.org/docs/api/r
-- ggplot2: https://ggplot2.tidyverse.org
+- [Kaggle F1 Dataset](https://www.kaggle.com/datasets/rohanrao/formula-1-world-championship-1950-2020)
+- [DuckDB R docs](https://duckdb.org/docs/api/r)
+- [ggplot2](https://ggplot2.tidyverse.org)
