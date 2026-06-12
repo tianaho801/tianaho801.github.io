@@ -1,8 +1,7 @@
 ---
 title: "F1 analysis"
 format: html
-
-author: "Group Members: [Tiana Ho] & [Khoi NGuyen]"
+author: "Tiana Ho & Khoi Nguyen"
 ---
 
 ## Brief Project Overview
@@ -32,7 +31,7 @@ con_f1 <- dbConnect(duckdb::duckdb(), dbdir = "f1_db")
 SHOW TABLES;
 ```
 
-### ---------------------------------------------------------------------------
+
 
 Accessing data
 
@@ -57,7 +56,6 @@ glimpse(drivers)
 glimpse(results)
 ```
 
-### ---------------------------------------------------------------------------
 
 Designing the database
 
@@ -175,8 +173,6 @@ SELECT * FROM drivers LIMIT 10;
 SELECT * FROM results LIMIT 10;
 ```
 
-
-### ---------------------------------------------------------------------------
 
  We wanted to identify the drivers who have had the strongest overall careers in terms of points.
  This combines driver information with race results and summarizes each driver’s total races, total points, and best single-race score.
@@ -386,7 +382,6 @@ ORDER BY season_year;
 ```
 
 
-# ------------------------------------------------------------------------------
 Pull query results into R for visualization
 
 ```{r}
@@ -476,10 +471,7 @@ q8 <- dbGetQuery(con_f1, "
 ```
 
 
-
-### ---------------------------------------------------------------------------
-
- Creating data visualizations
+Creating data visualizations
 
 ```{r}
 #| fig-width: 10
@@ -607,11 +599,10 @@ ggplot(q8, aes(x = season_year, y = avg_points_per_result)) +
 
 DBI::dbDisconnect(con_f1, shutdown = TRUE)
 ```
-### ---------------------------------------------------------------------------
+
 
 # Sources
 
 - Kaggle F1 Dataset: https://www.kaggle.com/datasets/rohanrao/formula-1-world-championship-1950-2020
 - DuckDB R docs: https://duckdb.org/docs/api/r
 - ggplot2: https://ggplot2.tidyverse.org
-### ---------------------------------------------------------------------------

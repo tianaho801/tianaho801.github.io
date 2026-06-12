@@ -1,18 +1,16 @@
 ---
 title: "Love, Fear, and Social Worlds: A Text Analysis of Pride and Prejudice, Frankenstein, and Dracula"
 format: html
+author: "Tiana Ho & Khoi Nguyen"
 ---
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.3\textwidth]{P&P.jpg}
-\hfill
-\includegraphics[width=0.3\textwidth]{F.jpg}
-\hfill
-\includegraphics[width=0.3\textwidth]{D.jpg}
+::: {layout-ncol=3}
+![1. Pride and Prejudice](P&P.jpg)
 
-\small 1. Pride and Prejudice \hfill 2. Frankenstein \hfill 3. Dracula
-\end{figure}
+![2. Frankenstein](F.jpg)
+
+![3. Dracula](D.jpg)
+:::
 
 ```{r}
 #| include: false
@@ -529,10 +527,9 @@ and one on collective survival against the unknown.
 
 ## References
 
-- Pride and Prejudice cover: https://www.amazon.com/Pride-Prejudice-Original-Austen-Classic/dp/B0DK41XQJ2
-- Frankenstein cover: https://www.amazon.com/Frankenstein-Chartwell-Classics-Mary-Shelley/dp/0785839887
-- Dracula cover: https://www.pixartprinting.co.uk/blog/dracula-covers-book/
-- Project Gutenberg: https://www.gutenberg.org
-- gutenbergr R package: https://docs.ropensci.org/gutenbergr
-- Text Mining with R (Silge & Robinson): https://www.tidytextmining.com
-- [Add your AI collaboration prompts here per the AI log template]
+- [Pride and Prejudice cover](https://www.amazon.com/Pride-Prejudice-Original-Austen-Classic/dp/B0DK41XQJ2) 
+- [Frankenstein cover](https://www.amazon.com/Frankenstein-Chartwell-Classics-Mary-Shelley/dp/0785839887)
+- [Dracula cover](https://www.pixartprinting.co.uk/blog/dracula-covers-book/)
+- [Project Gutenberg](https://www.gutenberg.org)
+- [gutenbergr R package](https://docs.ropensci.org/gutenbergr)
+- [Text Mining with R (Silge & Robinson)](https://www.tidytextmining.com)

@@ -29,7 +29,7 @@ Yes, DuckDB is not the fastest database. It is not the most complete in terms of
 
 I have used ChatGPT to further understand the article, explaining the terms they used and also used to help formatting the poster.
 
-## see more
+## More
 
-- [poster](https://rpubs.com/ntkhoi2k5/1437771)
-- [paper](duckdb.pdf)
+- [Poster](https://rpubs.com/ntkhoi2k5/1437771)
+- [Paper](duckdb.pdf)

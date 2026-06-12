@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Group Members: [Tiana Ho] &amp; [Khoi NGuyen]">
+<meta name="author" content="Tiana Ho &amp; Khoi Nguyen">
 
 <title>F1 analysis – Tiana Ho</title>
 <style>
@@ -200,7 +200,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Group Members: [Tiana Ho] &amp; [Khoi NGuyen] </p>
+             <p>Tiana Ho &amp; Khoi Nguyen </p>
           </div>
   </div>
     
@@ -244,8 +244,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 </div>
 </div>
-<section id="section" class="level3">
-<h3 class="anchored" data-anchor-id="section">—————————————————————————</h3>
 <p>Accessing data</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>races   <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"races.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -356,9 +354,6 @@ $ fastestLapSpeed &lt;chr&gt; "218.300", "217.586", "216.719", "215.464", "218.3
 $ statusId        &lt;dbl&gt; 1, 1, 1, 1, 1, 11, 5, 5, 4, 3, 7, 8, 5, 4, 10, 9, 4, 4…</code></pre>
 </div>
 </div>
-</section>
-<section id="section-1" class="level3">
-<h3 class="anchored" data-anchor-id="section-1">—————————————————————————</h3>
 <p>Designing the database</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">TABLE</span> <span class="cf">IF</span> <span class="kw">EXISTS</span> races;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1400,9 +1395,6 @@ $ statusId        &lt;dbl&gt; 1, 1, 1, 1, 1, 11, 5, 5, 4, 3, 7, 8, 5, 4, 10, 9, 
 </table>
 </div>
 </div>
-</section>
-<section id="section-2" class="level3">
-<h3 class="anchored" data-anchor-id="section-2">—————————————————————————</h3>
 <p>We wanted to identify the drivers who have had the strongest overall careers in terms of points. This combines driver information with race results and summarizes each driver’s total races, total points, and best single-race score. This allows us to seee which drivers have been the most productive over time.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a></span>
@@ -2205,10 +2197,6 @@ $ statusId        &lt;dbl&gt; 1, 1, 1, 1, 1, 11, 5, 5, 4, 3, 7, 8, 5, 4, 10, 9, 
 </table>
 </div>
 </div>
-</section>
-</section>
-<section id="section-3" class="level1">
-<h1>——————————————————————————</h1>
 <p>Pull query results into R for visualization</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>q1 <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(con_f1, <span class="st">"</span></span>
@@ -2295,8 +2283,6 @@ $ statusId        &lt;dbl&gt; 1, 1, 1, 1, 1, 11, 5, 5, 4, 3, 7, 8, 5, 4, 10, 9, 
 <span id="cb37-82"><a href="#cb37-82" aria-hidden="true" tabindex="-1"></a><span class="st">  GROUP BY CAST(ra.year AS INT)</span></span>
 <span id="cb37-83"><a href="#cb37-83" aria-hidden="true" tabindex="-1"></a><span class="st">  ORDER BY season_year"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<section id="section-4" class="level3">
-<h3 class="anchored" data-anchor-id="section-4">—————————————————————————</h3>
 <p>Creating data visualizations</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># merge q1 and q3 to get both career points and win rate for the same drivers</span></span>
@@ -2435,16 +2421,12 @@ $ statusId        &lt;dbl&gt; 1, 1, 1, 1, 1, 11, 5, 5, 4, 3, 7, 8, 5, 4, 10, 9, 
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>DBI<span class="sc">::</span><span class="fu">dbDisconnect</span>(con_f1, <span class="at">shutdown =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="section-5" class="level3">
-<h3 class="anchored" data-anchor-id="section-5">—————————————————————————</h3>
-</section>
-</section>
 <section id="sources" class="level1">
 <h1>Sources</h1>
 <ul>
 <li>Kaggle F1 Dataset: https://www.kaggle.com/datasets/rohanrao/formula-1-world-championship-1950-2020</li>
 <li>DuckDB R docs: https://duckdb.org/docs/api/r</li>
-<li>ggplot2: https://ggplot2.tidyverse.org ### —————————————————————————</li>
+<li>ggplot2: https://ggplot2.tidyverse.org</li>
 </ul>
 
 
